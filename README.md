@@ -162,37 +162,6 @@ If you want to test a different CNI plugin, run:
 
 You can install the following, optional, workloads and services in the cluster.
 
-### Ingress Controller
-
-To deploy the Ingress controller, SSH into the master and run the configuration
-script:
-
-1. `vagrant ssh kubernetes-master-1.kubernetes-playground.local`
-1. `sudo /vagrant/scripts/linux/bootstrap-ingress-controller.sh`
-
-The Traefik monitoring UI is accessible at
-`http://kubernetes-master-1.kubernetes-playground.local/monitoring/ingress`
-
-### Helm
-
-To initialize Helm, SSH into the master and run the configuration script:
-
-1. `vagrant ssh kubernetes-master-1.kubernetes-playground.local`
-1. `sudo /vagrant/scripts/linux/bootstrap-helm.sh`
-
-### Monitoring
-
-To deploy the monitoring solution, SSH into the master and run the configuration
-script:
-
-1. `vagrant ssh kubernetes-master-1.kubernetes-playground.local`
-1. Initialize Helm as described
-1. Initialize the Ingress Controller as described
-1. `sudo /vagrant/scripts/linux/bootstrap-monitoring.sh`
-
-The monitoring dashboard is accessible at
-`http://kubernetes-master-1.kubernetes-playground.local/monitoring/cluster`
-
 ### Kites experiments
 
 Kites allows you to test the traffic exchanged between Nodes
@@ -209,18 +178,6 @@ and run the configuration script:
 If you want to open a shell in the newly created container,
 follow the instructions in the
 [official Kubernetes docs](https://kubernetes.io/docs/tasks/debug-application-cluster/get-shell-running-container/).
-
-### Docker Registry
-
-To deploy a private Docker Registry, SSH into the master and run the
-configuration script:
-
-1. `vagrant ssh kubernetes-master-1.kubernetes-playground.local`
-1. Initialize Helm as described
-1. Initialize the Ingress Controller as described
-1. `sudo /vagrant/scripts/linux/bootstrap-docker-registry.sh`
-
-The registry is accessible at `https://registry.kubernetes-playground.local`
 
 ## Development and testing
 
@@ -278,7 +235,8 @@ same linters and test suites run automatically on each commit.
 The codebase is checked with linters and against common formatting rules.
 
 To run the same linting that the CI builds run, execute the
-[scripts/linux/ci/lint.sh](scripts/linux/ci/lint.sh) script.
+[scripts/linux/ci/lint.sh](scripts/linux/ci/lint.sh) and the
+[scripts/linux/ci/lint-inspec.sh](scripts/linux/ci/lint-inspec.sh) scripts.
 
 ##### Linting and formatting rules
 
@@ -319,12 +277,6 @@ it.
     the diagnostis script can query the hypervisor directly, without going
     through Vagrant. This is useful when you've issues connecting with
     `vagrant ssh`.
-
-1. Multiple load balanced nginx server instances: `kubernetes/nginx-stateless`
-1. A busybox instance, useful for debugging and troubleshooting (run commands
-    with `kubectl exec`.
-    Example: `kubectl exec -ti busybox -- nslookup hostname`):
-    `kubernetes/busybox`
 
 ## Contributing
 
